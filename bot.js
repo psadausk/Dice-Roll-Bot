@@ -65,6 +65,12 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                     });
                 }
                 break;
+            case 'Knobz': 
+                bot.sendMessage({
+                    to: channelID,
+                    message : "I don't mean to be offensive buuuttt..."
+                });
+                break;
             default : {
                 bot.sendMessage({
                     to:channelID,
