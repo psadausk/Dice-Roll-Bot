@@ -63,7 +63,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                         to: channelID,
                         message : 'https\:\/\/i.kym-cdn.com\/photos\/images\/newsfeed\/000\/073/178\/President-George-W.-Bush-Mission-Accomplished.jpg?1318992465'
                     });
-                } //Smalle comment
+                } 
                 break;
             case 'Knobz': 
                 bot.sendMessage({
