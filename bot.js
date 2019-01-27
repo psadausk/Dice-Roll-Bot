@@ -80,22 +80,20 @@ bot.on('message', function (user, userID, channelID, message, evt) {
         }
     } else if (message.startsWith('/roll')){
 
-        var val =  message.substr("/roll".length);
-
-        // var args = message.split(' ');
-        // logger.info('args are ' + args.join(', '));
-
+        var val =  message.substr("/roll".length);1
         
-        var regex = /(\d+)?[d|D](\d+)\s*(adv|dis)?/g;         
+        var regex = /(\d+)?[d|D](\d+)(\+\d|-\d+)?\s*(adv|dis)?/g;         
 
         var match = regex.exec(val.trim());        
 
         var multS = match[1];
         var typeS = match[2];
-        var adv = match[3];
+        var additor = match[3]
+        var adv = match[4];
 
         logger.info("multS: " + multS);
         logger.info("typeS: " + typeS);
+        logger.info("additor is " + additor);
         logger.info("adv: " + adv);
 
         var mult = NaN
@@ -109,7 +107,14 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 
         logger.info('mult is ' + mult);
 
+        
 
+        var n = 0;
+        if(additor[0] == '+'){
+            n = parseInt (additor.substr(1));
+        } else {
+            n = parseInt(additor.substr(1)) * -1;
+        }
         
         if (mult == NaN || type == NaN){
             bot.sendMessage({
@@ -125,7 +130,10 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                 logger.info("Rolled a " + val);
                 vals1.push(val);
             }
-            
+
+            sum1 += n;
+            vals1.push(n);
+
             var sum2 = 0;
             var vals2 = [];
             for(var i = 0; i < mult; i++){
@@ -133,7 +141,9 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                 sum2 += val;
                 vals2.push(val);
             }
-        
+
+            sum2 += n;
+            vals2.push(n);
 
             var s = "<@" + userID + "> `rolled a ";
             if(adv == '' || adv == undefined){
@@ -159,10 +169,6 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                 message: s
             });
         }
-
-
-
-        logger.info
     }
 });
 
